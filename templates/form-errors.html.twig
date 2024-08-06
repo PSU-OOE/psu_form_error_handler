@@ -1,10 +1,4 @@
-{% set content %}
-  {{ heading }}
-  {{ errors }}
-{% endset %}
-<span class="messages__heading">
-  {% include '@psu-ooe/alert/alert.twig' with {
-    content: content,
-    severity: "error"
-  } only %}
-</span>
+<div class="messages__intro">
+  {{ summary }}
+</div>
+{{ errors }}

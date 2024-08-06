@@ -30,12 +30,36 @@ class FormErrorHandler extends InlineFormErrorHandler {
   }
 
   /**
+   * Determines if the current theme is compatible with this implementation.
+   *
+   * If the current theme, or any base theme is the 'ooe' theme, it is.
+   *
+   * @return bool
+   *   TRUE if the current theme is compatible, otherwise FALSE.
+   */
+  protected function isCurrentThemeCompatible() {
+    $is_compatible = FALSE;
+    $theme = $this->themeManager->getActiveTheme();
+    if ($theme === 'ooe') {
+      $is_compatible = TRUE;
+    }
+    else {
+      foreach ($theme->getBaseThemeExtensions() as $base_theme) {
+        if ($base_theme->getName() === 'ooe') {
+          $is_compatible = TRUE;
+          break;
+        }
+      }
+    }
+    return $is_compatible;
+  }
+
+  /**
    * {@inheritdoc}
    */
   protected function displayErrorMessages(array $form, FormStateInterface $form_state): void {
 
-    // Only the OOE base theme is compatible with this extension.
-    if ($this->themeManager->getActiveTheme()->getName() !== 'ooe') {
+    if (!$this->isCurrentThemeCompatible()) {
       parent::displayErrorMessages($form, $form_state);
       return;
     }
@@ -65,7 +89,7 @@ class FormErrorHandler extends InlineFormErrorHandler {
           '#type' => 'link',
           '#title' => [
             '#type' => 'inline_template',
-            '#template' => '{% include "@psu-ooe/sprite/sprite.twig" with { name: "fa-circle-arrow-down"} only %}<span> {{ error }}</span>',
+            '#template' => '{% include "@psu-ooe/sprite/sprite.twig" with { name: "fa-circle-arrow-down"} only %}<span>{{ error }}</span>',
             '#context' => [
               'error' => $error,
             ],
@@ -81,7 +105,7 @@ class FormErrorHandler extends InlineFormErrorHandler {
         // Otherwise add it to the top of the list.
         array_unshift($error_links, [
           '#type' => 'inline_template',
-          '#template' => '{% include "@psu-ooe/sprite/sprite.twig" with { name: "fa-exclamation-circle"} only %}<span> {{ error }}</span>',
+          '#template' => '{% include "@psu-ooe/sprite/sprite.twig" with { name: "fa-exclamation-circle"} only %}<span>{{ error }}</span>',
           '#context' => [
             'error' => $error,
           ],
@@ -96,11 +120,11 @@ class FormErrorHandler extends InlineFormErrorHandler {
 
     if (!empty($error_links)) {
 
-      $heading = $this->formatPlural(count($error_links), 'Please resolve this issue before proceeding:', 'Please resolve these @count issues before proceeding:');
+      $summary = $this->formatPlural(count($error_links), 'Please resolve this issue before proceeding:', 'Please resolve these @count issues before proceeding:');
 
       $build = [
         '#theme' => 'form_errors',
-        '#heading' => $heading,
+        '#summary' => $summary,
         '#errors' => [
           '#theme' => 'item_list',
           '#attributes' => [
