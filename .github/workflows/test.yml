@@ -38,7 +38,7 @@ jobs:
           version: ${{ matrix.drupal-core }}
           dependencies: 'drupal/coder:^8.3'
       - name: Checkout module
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Copy module into drupal installation
         run: mkdir -p ~/drupal/web/modules/contrib && cp -ar ~/work/psu_form_error_handler ~/drupal/web/modules/contrib
       - name: Check coding standards
