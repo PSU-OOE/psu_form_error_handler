@@ -33,12 +33,10 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
       - name: Setup Drupal action
-        uses: bluehorndigital/setup-drupal@v1.0.4
+        uses: bluehorndigital/setup-drupal@v1.1.0
         with:
           version: ${{ matrix.drupal-core }}
           dependencies: 'drupal/coder:^8.3'
-      - name: Set coding standards path
-        run: ~/drupal/vendor/bin/phpcs --config-set installed_paths /home/runner/drupal/vendor/drupal/coder/coder_sniffer
       - name: Checkout module
         uses: actions/checkout@v2
       - name: Copy module into drupal installation
