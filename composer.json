@@ -1,0 +1,5 @@
+{
+  "name": "psu-ooe/psu_form_error_handler",
+  "description": "Extends the core form error handler implementation to provide UX best practices out of the box.",
+  "type": "drupal-module"
+}
