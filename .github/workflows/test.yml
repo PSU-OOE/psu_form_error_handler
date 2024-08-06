@@ -36,7 +36,7 @@ jobs:
         uses: bluehorndigital/setup-drupal@v1.0.4
         with:
           version: ${{ matrix.drupal-core }}
-          dependencies: 'drupal/coder:=8.3.13'
+          dependencies: 'drupal/coder:^8.3'
       - name: Set coding standards path
         run: ~/drupal/vendor/bin/phpcs --config-set installed_paths /home/runner/drupal/vendor/drupal/coder/coder_sniffer
       - name: Checkout module

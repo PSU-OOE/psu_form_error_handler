@@ -29,4 +29,5 @@ class ServiceTest extends KernelTestBase {
       get_class(\Drupal::service('form_error_handler'))
     );
   }
+
 }

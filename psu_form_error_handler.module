@@ -8,7 +8,7 @@
 /**
  * Implements hook_theme().
  */
-function psu_form_validation_theme() {
+function psu_form_error_handler_theme() {
   return [
     'form_errors' => [
       'template' => 'form-errors',
