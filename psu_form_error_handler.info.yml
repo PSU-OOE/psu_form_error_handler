@@ -1,0 +1,6 @@
+name: PSU Form Error Handler
+description: Extends the core form error handler implementation to provide UX best practices out of the box.
+core_version_requirement: ^10.3 || ^11
+type: module
+dependencies:
+  - drupal:inline_form_errors

@@ -1,0 +1,8 @@
+services:
+  psu_form_error_handler.form_error_handler:
+    parent: form_error_handler
+    class: Drupal\psu_form_error_handler\FormErrorHandler
+    public: false
+    decorates: form_error_handler
+    calls:
+      - [setThemeManager, ['@theme.manager']]
