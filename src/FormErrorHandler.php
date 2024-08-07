@@ -123,17 +123,20 @@ class FormErrorHandler extends InlineFormErrorHandler {
       $summary = $this->formatPlural(count($error_links), 'Please resolve this issue before proceeding:', 'Please resolve these @count issues before proceeding:');
 
       $build = [
-        '#theme' => 'form_errors',
-        '#summary' => $summary,
-        '#errors' => [
-          '#theme' => 'item_list',
-          '#attributes' => [
-            'class' => [
-              'messages__list',
+        '#type' => 'inline_template',
+        '#template' => '<div class="messages__intro">{{ summary }}</div>{{ errors }}',
+        '#context' => [
+          'summary' => $summary,
+          'errors' => [
+            '#theme' => 'item_list',
+            '#attributes' => [
+              'class' => [
+                'messages__list',
+              ],
             ],
+            '#items' => $error_links,
+            '#list_type' => 'ol',
           ],
-          '#items' => $error_links,
-          '#list_type' => 'ol',
         ],
       ];
       $message = $this->renderer->renderPlain($build);
