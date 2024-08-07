@@ -17,6 +17,6 @@ jobs:
           - profile: 'next-major'
     steps:
       - name: Custom action
-        uses: lal65/drupal-module-qa-action@main
+        uses: psu-ooe/drupal-module-qa-action@main
         with:
           profile: ${{ matrix.profile }}
